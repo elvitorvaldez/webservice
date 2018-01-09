@@ -19,9 +19,17 @@ class CalificacionesController extends Controller
             ->selectRaw("DATE_FORMAT(t_calificaciones.fecha_registro,'%d-%m-%Y') as fecha_registro")
             ->get();
 
-        return $users;
+        $promedio = DB::table("t_alumnos")
+            ->join("t_calificaciones", "t_alumnos.id_t_usuarios", "=", "t_calificaciones.id_t_usuarios")
+            ->join("t_materias", "t_materias.id_t_materias", "=", "t_calificaciones.id_t_materias")
+             ->selectRaw("AVG(t_calificaciones.t_calificaciones.calificacion) as promedio")
+             ->select(DB::raw('AVG(t_calificaciones.calificacion) as promedio'))
+            ->get();    
 
+        
 
+     $exito = array_merge(json_decode($users, true),json_decode($promedio, true));
+     return  $exito;
 
     }
 
