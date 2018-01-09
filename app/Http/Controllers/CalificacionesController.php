@@ -6,24 +6,30 @@ use Illuminate\Http\Request;
 use App\Califica;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Input;
+
 
 class CalificacionesController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+
+  
+	$idAlumno = $request->idAlumno;
        
     	$users = DB::table("t_alumnos")
             ->join("t_calificaciones", "t_alumnos.id_t_usuarios", "=", "t_calificaciones.id_t_usuarios")
             ->join("t_materias", "t_materias.id_t_materias", "=", "t_calificaciones.id_t_materias")
             ->select("t_alumnos.id_t_usuarios", "t_alumnos.nombre", "t_alumnos.ap_paterno", "t_alumnos.ap_materno","t_materias.nombre", "t_calificaciones.calificacion")  
             ->selectRaw("DATE_FORMAT(t_calificaciones.fecha_registro,'%d-%m-%Y') as fecha_registro")
+            ->where('t_alumnos.id_t_usuarios', '=', $idAlumno)
             ->get();
 
         $promedio = DB::table("t_alumnos")
             ->join("t_calificaciones", "t_alumnos.id_t_usuarios", "=", "t_calificaciones.id_t_usuarios")
             ->join("t_materias", "t_materias.id_t_materias", "=", "t_calificaciones.id_t_materias")
-             ->selectRaw("AVG(t_calificaciones.t_calificaciones.calificacion) as promedio")
              ->select(DB::raw('AVG(t_calificaciones.calificacion) as promedio'))
+             ->where('t_alumnos.id_t_usuarios', '=', $idAlumno)
             ->get();    
 
         
