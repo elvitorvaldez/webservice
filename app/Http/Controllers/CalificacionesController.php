@@ -11,7 +11,18 @@ class CalificacionesController extends Controller
 {
     public function index()
     {
-        return Califica::all();
+       
+    	$users = DB::table("t_alumnos")
+            ->join("t_calificaciones", "t_alumnos.id_t_usuarios", "=", "t_calificaciones.id_t_usuarios")
+            ->join("t_materias", "t_materias.id_t_materias", "=", "t_calificaciones.id_t_materias")
+            ->select("t_alumnos.id_t_usuarios", "t_alumnos.nombre", "t_alumnos.ap_paterno", "t_alumnos.ap_materno","t_materias.nombre", "t_calificaciones.calificacion")  
+            ->selectRaw("DATE_FORMAT(t_calificaciones.fecha_registro,'%d-%m-%Y') as fecha_registro")
+            ->get();
+
+        return $users;
+
+
+
     }
 
     public function store()
