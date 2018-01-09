@@ -1,52 +1,91 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+<p align="center"><img src="https://davidgro1982.000webhostapp.com/loginvv/public/img/39993.jpg" width="15%" class="img-rounded"></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+## Inicio de sesión hecho en Laravel
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Este inicio de sesión muestra las operaciones básicas para sesiones en cualquier sitio, tales como
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
+- Inicio de sesión
+- Cerrar sesión
+- Solicitud de reestablecimiento de contraseña (el cual enviará un correo)
+- Correo de restauración de contraseña con hipervínculo a un formulario para crear una contraseña nueva
 
-## Learning Laravel
+## Repositorio
 
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
+Para hacer funcionar este repositorio en un ambiente local (además de clonar el repositorio), se requiere
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+- Restaurar el dump de la base de datos, incluido en el repositorio
+- Modificar lo siguiente en el archivo .env 
+	<br>-Los accesos a su base de datos local
+	<br>-Las credenciales de su cuenta de correo gmail 
+- Configurar su cuenta de correo gmail para permitir acceso de aplicaciones menos seguras https://myaccount.google.com/lesssecureapps?pli=1  
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](http://patreon.com/taylorotwell):
+## Funcionamiento (flujo)
 
-- **[Vehikl](http://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Styde](https://styde.net)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
+- Crear un usuario en la opción <i>Registro</i>, al crear un usuario, se iniciará sesión
+- Puede probar cerrar sesión
+- Puede probar la opción <i>No recuerdo mi contraseña</i>, que le enviará un correo a la cuenta de email registrada con una liga para restaurar contraseña
+- Al modificar su contraseña, se iniciará sesión
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
 
-## Security Vulnerabilities
+## Sitio en vivo
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+https://davidgro1982.000webhostapp.com/loginvv/public/index.php
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
-"# webservice" 
+<p align="center"><img src="https://davidgro1982.000webhostapp.com/loginvv/public/img/39993.jpg" width="15%" class="img-rounded"></p>
+
+
+
+## Web Service hecho en Laravel
+
+Este inicio de sesión muestra las operaciones básicas de un CRUD con los verbos HTTP solicitados para web service
+
+- GET
+- POST
+- PUT
+- DELETE
+
+## Repositorio
+
+Para hacer funcionar este repositorio en un ambiente local (además de clonar el repositorio), se requiere
+
+- Montar la de la base de datos
+- Modificar lo siguiente en el archivo .env 
+	<br>-Los accesos a su base de datos local
+
+## Funcionamiento (flujo)
+
+Para probar este web service mediante postman, se requiere lo siguiente
+
+
+Método GET 
+
+- http://localhost/webservice/public/ListarCalif/{idAlumno}
+- Invocará al método index de CalificacionesController
+- Se pasa directamente la url colocando el id de un alumno con calificaciones registradas
+
+Método POST
+
+- http://localhost/webservice/public/AgregarCalif
+- Invocará al método store de CalificacionesController
+- En la sección body se agregan tres keys: id_t_usuarios {1}, id_t_materias {1} y calificacion {85}, mis datos doomies dueron los encerrados entre llaves
+
+Método PUT
+
+- http://localhost/webservice/public/CambiarCalif
+- Invocará al método update de CalificacionesController
+- En la sección body se agregan dos keys: id_t_calificacion {6}, y calificacion {70}, mis datos doomies dueron los encerrados entre llaves
+
+Método DELETE
+
+- http://localhost/webservice/public/BorrarCalif
+- Invocará al método destroy de CalificacionesController
+- En la sección body se agrega un keys: id_t_calificacion {6}, mis datos doomies dueron los encerrados entre llaves
+
+
+
+
