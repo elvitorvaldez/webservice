@@ -20,7 +20,7 @@ class CalificacionesController extends Controller
     	$users = DB::table("t_alumnos")
             ->join("t_calificaciones", "t_alumnos.id_t_usuarios", "=", "t_calificaciones.id_t_usuarios")
             ->join("t_materias", "t_materias.id_t_materias", "=", "t_calificaciones.id_t_materias")
-            ->select("t_alumnos.id_t_usuarios", "t_alumnos.nombre", "t_alumnos.ap_paterno", "t_alumnos.ap_materno","t_materias.nombre", "t_calificaciones.calificacion")  
+            ->select("t_alumnos.id_t_usuarios", "t_alumnos.nombre as nombre", "t_alumnos.ap_paterno", "t_alumnos.ap_materno","t_materias.nombre as materia", "t_calificaciones.calificacion")  
             ->selectRaw("DATE_FORMAT(t_calificaciones.fecha_registro,'%d-%m-%Y') as fecha_registro")
             ->where('t_alumnos.id_t_usuarios', '=', $idAlumno)
             ->get();
@@ -39,39 +39,79 @@ class CalificacionesController extends Controller
 
     }
 
-    public function store()
+    public function store(Request $request)
     {
-        return Calificacion::create(Input::all());
-    }
-
-
-    public function show($calificacionId)
-    {
+    	$retorno = "";
         $fecha = date("Y-m-d");
 
-		$inserted = DB::table('t_calificaciones')
-	    ->insert([
-		'id_t_materias' => 2,
-		'id_t_usuarios' => 1,
-		'calificacion' => 100,
-		'fecha_registro' => $fecha
-	]);
+    if ($request->id_t_materias=="" && $request->id_t_usuario=="" && $request->id_t_calificacion=="")
+    {
+		$retorno = Response::json(array("success"=>"error" , "msg"=>"no se recibieron datos"));
+	}
 
-		 
-		$exito = Response::json(array("success"=>"ok" , "msg"=>"calificacion registrada"));
-	
-        return $exito;
+
+	else 
+   	{ 
+
+		
+	    $inserted = DB::table('t_calificaciones')->insert([	    	
+			'id_t_materias' => $request->id_t_materias,
+			'id_t_usuarios' => $request->id_t_usuarios,
+			'calificacion' => $request->calificacion,
+			'fecha_registro' => $fecha
+			]);
+
+			 
+			$retorno = Response::json(array("success"=>"ok" , "msg"=>"calificacion registrada"));
+		
+				
+	  }
+        return $retorno;	
     }
 
 
-    public function update($calificacionId)
+    public function show()
     {
-        Calificacion::findOrFail($calificacionId)->update(Input::all());
+      //  
     }
 
 
-    public function destroy($id)
+    public function update(Request $request)
     {
-        Calificacion::findOrFail($id)->delete();
+    	$retorno="";
+    	 if ($request->calificacion=="" && $request->id_t_calificacion=="")
+		    {
+				$retorno = Response::json(array("success"=>"error" , "msg"=>"no se recibieron datos"));
+			}
+
+			else
+			{
+		        DB::table('t_calificaciones')
+			    ->where('id_t_calificaciones', $request->id_t_calificacion)
+			    ->update(['calificacion' => $request->calificacion]);
+			    $retorno = Response::json(array("success"=>"ok" , "msg"=>"calificacion actualizada"));
+			}
+	return $retorno;
+    }
+
+
+
+
+    public function destroy(Request $request)
+    {
+
+    	$retorno="";
+    	 if ($request->id_t_calificacion=="")
+		    {
+				$retorno = Response::json(array("success"=>"error" , "msg"=>"no se recibieron datos"));
+			}
+
+			else
+			{
+        DB::table('t_calificaciones')->where('id_t_calificaciones', '=', $request->id_t_calificacion)->delete();
+        $retorno = Response::json(array("success"=>"ok" , "msg"=>"calificacion eliminada"));
+    
+    }
+    return $retorno;
     }
 }

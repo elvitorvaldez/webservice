@@ -19,7 +19,6 @@ Route::get('/', function () {
 Route::resource('Alumnos', 'AlumnosController');
 //Route::resource('Calificaciones', 'CalificacionesController');
 Route::get('ListarCalif/{idAlumno}', 'CalificacionesController@index');
-
-/*Route::get('ListarCalif/{idAlumno}', function ($idAlumno) {
- return $idAlumno;
-});*/
+Route::post('AgregarCalif', 'CalificacionesController@store');
+Route::put('CambiarCalif', 'CalificacionesController@update');
+Route::delete('BorrarCalif', 'CalificacionesController@destroy');

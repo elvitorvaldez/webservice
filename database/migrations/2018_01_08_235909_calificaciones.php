@@ -14,8 +14,7 @@ class Calificaciones extends Migration
     public function up()
     {
         Schema::table('t_calificaciones', function (Blueprint $table) {
-            $table->increments('id_t_calificaciones');
-            
+            $table->increments('id_t_calificaciones');            
             $table->int('id_t_materias');
             $table->int('id_t_usuario');
             $table->float('calificacion');            

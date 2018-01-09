@@ -8,5 +8,5 @@ class Califica extends Model
 {
 	public $table = "t_calificaciones";
 	protected $primaryKey = 'id_t_calificaciones';
-    protected $fillable = ['id_t_calificaciones,id_t_materias,id_t_usuarios,calificacion,fecha_registro'];
+    protected $fillable = ['id_t_materias,id_t_usuarios,calificacion,fecha_registro'];
 }
