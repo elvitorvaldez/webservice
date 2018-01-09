@@ -2,44 +2,6 @@
 
 
 
-## Inicio de sesión hecho en Laravel
-
-Este inicio de sesión muestra las operaciones básicas para sesiones en cualquier sitio, tales como
-
-- Inicio de sesión
-- Cerrar sesión
-- Solicitud de reestablecimiento de contraseña (el cual enviará un correo)
-- Correo de restauración de contraseña con hipervínculo a un formulario para crear una contraseña nueva
-
-## Repositorio
-
-Para hacer funcionar este repositorio en un ambiente local (además de clonar el repositorio), se requiere
-
-- Restaurar el dump de la base de datos, incluido en el repositorio
-- Modificar lo siguiente en el archivo .env 
-	<br>-Los accesos a su base de datos local
-	<br>-Las credenciales de su cuenta de correo gmail 
-- Configurar su cuenta de correo gmail para permitir acceso de aplicaciones menos seguras https://myaccount.google.com/lesssecureapps?pli=1  
-
-
-## Funcionamiento (flujo)
-
-- Crear un usuario en la opción <i>Registro</i>, al crear un usuario, se iniciará sesión
-- Puede probar cerrar sesión
-- Puede probar la opción <i>No recuerdo mi contraseña</i>, que le enviará un correo a la cuenta de email registrada con una liga para restaurar contraseña
-- Al modificar su contraseña, se iniciará sesión
-
-
-
-## Sitio en vivo
-
-https://davidgro1982.000webhostapp.com/loginvv/public/index.php
-
-
-<p align="center"><img src="https://davidgro1982.000webhostapp.com/loginvv/public/img/39993.jpg" width="15%" class="img-rounded"></p>
-
-
-
 ## Web Service hecho en Laravel
 
 Este inicio de sesión muestra las operaciones básicas de un CRUD con los verbos HTTP solicitados para web service
